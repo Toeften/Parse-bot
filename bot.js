@@ -31,7 +31,23 @@ const whitelistedPlayer = [
 	"Bocas",
 	"Murrin",
 	"BalaHU",
-	"Gravesbud"
+	"Gravesbud",
+	"MaxFelon",
+	"Maximumlhp",
+	"Xoo",
+	"IchBinDein",
+	"Trbc",
+	"Mosasank",
+	"Idyll",
+	"Eithanhugs",
+	"Eksemie",
+	"qq",
+	"Orb",
+	"GangDuck",
+	"Qweik",
+	"ItzKieron",
+	"Deltrex",
+	"MOONSHOOT"
 ];
 
 const whitelistedGuild = [
