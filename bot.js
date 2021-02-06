@@ -3,8 +3,23 @@ const request = require("request")
 const Tesseract = require('tesseract.js');
 const client = new Discord.Client();
 const prefix = "!";
-const whitelistedPlayer = require("./whitelist.json");
-const a = {};
+const whitelistedPlayer = [
+    "Nude",
+    "AetheA",
+    "Maginallll",
+    "Jukkii",
+    "OnePieceVK",
+    "Phoezflm",
+    "Madlabrush",
+    "Linn",
+    "ThatsJake",
+    "ZBVTTX",
+    "RedasKG",
+    "Toften",
+    "Floflorian",
+    "KUNiBALD",
+	"itachiToT"
+];
 
 const whitelistedGuild = [
 	'h',
@@ -84,7 +99,7 @@ client.on('message', async message => {
 									  tryagain();
 									  return;
 								  }
-								  if (whitelistedGuild.includes(playerData.guild) || whitelistedPlayer.Players.includes(name)) list.whitelisted.push(name);
+								  if (whitelistedGuild.includes(playerData.guild) || whitelistedPlayer.includes(name)) list.whitelisted.push(name);
 								  else list.crasher.push(name);
 								  index++;
 								  update(list, index / players.length * 100);
