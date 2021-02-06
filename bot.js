@@ -68,7 +68,7 @@ client.on('ready', async () => {
 
 client.on('message', async message => {
 	const args = message.content.split(" ");
-	if (message.content === prefix + "parse") {
+	if (message.content.startsWith(prefix + "parse")) {
 		if (message.attachments.size > 0) {
 			if (message.attachments.every(attachIsImage)) {
 				let image = message.attachments.first();
