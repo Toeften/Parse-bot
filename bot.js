@@ -96,7 +96,7 @@ client.on('message', async message => {
 					players.forEach(async name => {
 						let retries = 0;
 						  function tryagain() {
-							request(`https://nightfirec.at/realmeye-api/?player=${name}&filter=guild`, async function (error, response, body) {
+							request(`http://realmeye-api.herokuapp.com/realmeye-api/?player=${name}&filter=guild`, async function (error, response, body) {
 								  if (!response || !response.body) {
 									  tryagain();
 									  return;
