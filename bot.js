@@ -3,52 +3,7 @@ const request = require("request")
 const Tesseract = require('tesseract.js');
 const client = new Discord.Client();
 const prefix = "!";
-const whitelistedPlayer = [
-    "Nude",
-    "AetheA",
-    "Maginallll",
-    "Jukkii",
-    "OnePieceVK",
-    "Phoezflm",
-    "Madlabrush",
-    "Linn",
-    "ThatsJake",
-    "ZBVTTX",
-    "RedasKG",
-    "Toften",
-    "Floflorian",
-    "KUNiBALD",
-	"itachiToT",
-	"baes",
-	"Kreszczi",
-	'Popestar',
-	"Manaphy",
-	"Andreasan",
-	"Jimx",
-	"Lillie",
-	"Cubeee",
-	"Baanana",
-	"Bocas",
-	"Murrin",
-	"BalaHU",
-	"Gravesbud",
-	"MaxFelon",
-	"Maximumlhp",
-	"Xoo",
-	"IchBinDein",
-	"Trbc",
-	"Mosasank",
-	"Idyll",
-	"Eithanhugs",
-	"Eksemie",
-	"qq",
-	"Orb",
-	"GangDuck",
-	"Qweik",
-	"ItzKieron",
-	"Deltrex",
-	"MOONSHOOT"
-];
+const config = require("./config.json");
 
 const whitelistedGuild = [
 	'h',
@@ -77,6 +32,10 @@ client.on('message', async message => {
 					crasher: [],
 					whitelisted: []
 				};
+				let nicknames = [];
+				message.guild.members.forEach(member => {
+					nicknames.push(member.nickname);
+				})
 				let embed = await message.channel.send("Parsing image...");
 				function update(list, num) {
 					embed.edit("Results! " + num.toFixed(2) + "%", {
@@ -122,7 +81,7 @@ client.on('message', async message => {
 									list.notfound.push(name);
 									return;
 								};
-								if (whitelistedGuild.includes(playerData.guild) || whitelistedPlayer.includes(name)) list.whitelisted.push(name);
+								if (whitelistedGuild.includes(playerData.guild) || config.whitelistedPlayer.includes(name) || nicknames.includes(name)) list.whitelisted.push(name);
 								else list.crasher.push(name);
 								index++;
 								update(list, index / players.length * 100);
