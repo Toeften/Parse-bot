@@ -18,7 +18,20 @@ const whitelistedPlayer = [
     "Toften",
     "Floflorian",
     "KUNiBALD",
-	"itachiToT"
+	"itachiToT",
+	"baes",
+	"Kreszczi",
+	'Popestar',
+	"Manaphy",
+	"Andreasan",
+	"Jimx",
+	"Lillie",
+	"Cubeee",
+	"Baanana",
+	"Bocas",
+	"Murrin",
+	"BalaHU",
+	"Gravesbud"
 ];
 
 const whitelistedGuild = [
@@ -33,11 +46,12 @@ const whitelistedGuild = [
 	'booling',
 	'Vovicum'
 ]
-client.on('ready', () => {
+client.on('ready', async () => {
 	console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('message', async message => {
+	message.channel.messages
 	if (message.content === prefix + "parse") {
 		if (message.attachments.size > 0) {
 			if (message.attachments.every(attachIsImage)) {
@@ -48,7 +62,7 @@ client.on('message', async message => {
 					whitelisted: []
 				};
 				let embed = await message.channel.send("Parsing image...");
-				let update = (list, num) => {
+				function update(list, num) {
 					embed.edit("Results! " + num.toFixed(2) + "%", {
 						"embed": {
 							"color": 16711680,
@@ -94,10 +108,10 @@ client.on('message', async message => {
 										list.notfound.push(name);
 										return;
 									};
-									  retries++;
+									retries++;
 									await sleep(10);
-									  tryagain();
-									  return;
+									tryagain();
+									return;
 								  }
 								  if (whitelistedGuild.includes(playerData.guild) || whitelistedPlayer.includes(name)) list.whitelisted.push(name);
 								  else list.crasher.push(name);
