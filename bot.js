@@ -3,7 +3,8 @@ const request = require("request")
 const Tesseract = require('tesseract.js');
 const client = new Discord.Client();
 const prefix = "!";
-const whitelisted = [
+const whitelistedPlayer = require("./whitelist.json");
+const whitelistedGuild = [
 	'h',
 	'Lana Del Rey',
 	'The Senate',
@@ -81,7 +82,7 @@ client.on('message', async message => {
 									  tryagain();
 									  return;
 								  }
-								  if (whitelisted.includes(playerData.guild)) list.whitelisted.push(name);
+								  if (whitelistedGuild.includes(playerData.guild) || whitelistedPlayer.includes(name)) list.whitelisted.push(name);
 								  else list.crasher.push(name);
 								  index++;
 								  update(list, index / players.length * 100);
@@ -101,7 +102,6 @@ client.on('message', async message => {
     message.channel.send("Pong!");
   }
 });
-
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
