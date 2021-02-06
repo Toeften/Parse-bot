@@ -67,7 +67,7 @@ client.on('ready', async () => {
 });
 
 client.on('message', async message => {
-	message.channel.messages
+	const args = message.content.split(" ");
 	if (message.content === prefix + "parse") {
 		if (message.attachments.size > 0) {
 			if (message.attachments.every(attachIsImage)) {
@@ -119,7 +119,7 @@ client.on('message', async message => {
 								  };
 								  let playerData = JSON.parse(response.body);
 								  if (playerData.error) {
-									if (retries >= 10) {
+									if (retries >= (args[1] || 5)) {
 										index++;
 										list.notfound.push(name);
 										return;
