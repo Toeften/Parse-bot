@@ -57,14 +57,14 @@ client.on('message', async message => {
 				Tesseract.recognize(
 					image.url,
 					'eng',
-				  ).then(({ data: { text } }) => {
+				  ).then(async ({ data: { text } }) => {
 					let newtext = text.split("\n").join("")
 					let players = newtext.slice(newtext.search(":") + 2).replace(/\s*/g, "").split(",");
 					let index = 0;
-					players.forEach(name => {
+					players.forEach(async name => {
 						let retries = 0;
 						  function tryagain() {
-							  request(`https://nightfirec.at/realmeye-api/?player=${name}&filter=guild`, async function (error, response, body) {
+							request(`https://nightfirec.at/realmeye-api/?player=${name}&filter=guild`, async function (error, response, body) {
 								  if (!response || !response.body) {
 									  tryagain();
 									  return;
@@ -72,6 +72,7 @@ client.on('message', async message => {
 								  let playerData = JSON.parse(response.body);
 								  if (playerData.error) {
 									if (retries >= 10) {
+										index++;
 										list.notfound.push(name);
 										return;
 									};
@@ -80,11 +81,9 @@ client.on('message', async message => {
 									  tryagain();
 									  return;
 								  }
-								  if (whitelisted.includes(playerData.guild))
-									  list.whitelisted.push(name);
-								  else
-									  list.crasher.push(name);
-								 index++;
+								  if (whitelisted.includes(playerData.guild)) list.whitelisted.push(name);
+								  else list.crasher.push(name);
+								  index++;
 								  update(list, index / players.length * 100);
 							  });
 						  }
@@ -93,13 +92,16 @@ client.on('message', async message => {
 				});
 			}
 		} else {
-			message.reply("your image?????????")
+			message.reply("your image?????????").then(e => {
+				e.delete(5000)
+			})
 		}
 	}
   if (message.content === prefix + "ping") {
-    message.channel.send("Ping: " + client.ws.ping);
+    message.channel.send("Pong!");
   }
 });
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
