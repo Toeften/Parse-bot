@@ -38,25 +38,26 @@ client.on('message', async message => {
 				})
 				let embed = await message.channel.send("Parsing image...");
 				function update(list, num) {
+					let wait = (num === 100 && "None" || "Please wait...")
 					embed.edit("Results! " + num.toFixed(2) + "%", {
 						"embed": {
 							"color": 16711680,
 							"timestamp": new Date(),
 							"fields": [{
-									"name": "Crashers",
-									"value": list.crasher.join(", ") || "Please wait..."
+									"name": `Crashers: (${list.crasher.length})`,
+									"value": list.crasher.join(", ") || wait
 								},
 								{
-									"name": "Whitelisted",
-									"value": list.whitelisted.join(', ') || "Please wait..."
+									"name": `Whitelisted: (${list.whitelisted.length})`,
+									"value": list.whitelisted.join(', ') ||  wait
 								},
 							  {
-									"name": "Private Realmeye or Error",
-									"value": list.notfound.join(', ') || "Please wait..."
+									"name": `Private Realmeye or Error: (${list.notfound.length})`,
+									"value": list.notfound.join(', ') || wait
 								}
 							],
 							"footer": {
-								text: 'this isnt 100% accurate but might help alot.',
+								text: 'pog.',
 							},
 						}
 					})
