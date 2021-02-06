@@ -35,7 +35,7 @@ client.on('message', async message => {
 				};
 				let nicknames = [];
 				message.guild.members.forEach(member => {
-					nicknames.push(member.nickname);
+					nicknames.push(member.displayName);
 				})
 				let embed = await message.channel.send("Parsing image...");
 				function update(list, num) {
