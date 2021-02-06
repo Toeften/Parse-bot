@@ -62,7 +62,6 @@ client.on('message', async message => {
 					let players = newtext.slice(newtext.search(":") + 2).replace(/\s*/g, "").split(",");
 					let index = 0;
 					players.forEach(name => {
-						index++;
 						let retries = 0;
 						  function tryagain() {
 							  request(`https://nightfirec.at/realmeye-api/?player=${name}&filter=guild`, async function (error, response, body) {
@@ -85,6 +84,7 @@ client.on('message', async message => {
 									  list.whitelisted.push(name);
 								  else
 									  list.crasher.push(name);
+								 index++;
 								  update(list, index / players.length * 100);
 							  });
 						  }
