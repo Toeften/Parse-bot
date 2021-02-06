@@ -68,7 +68,7 @@ client.on('ready', async () => {
 
 client.on('message', async message => {
 	const args = message.content.split(" ");
-	if (message.content.startsWith(prefix + "parse")) {
+	if (message.content === prefix + "parse") {
 		if (message.attachments.size > 0) {
 			if (message.attachments.every(attachIsImage)) {
 				let image = message.attachments.first();
@@ -110,32 +110,25 @@ client.on('message', async message => {
 					let players = newtext.slice(newtext.search(":") + 2).replace(/\s*/g, "").split(",");
 					let index = 0;
 					players.forEach(async name => {
-						let retries = 0;
-						  function tryagain() {
+						function tryagain() {
 							request(`http://realmeye-api.herokuapp.com/realmeye-api/?player=${name}&filter=guild`, async function (error, response, body) {
-								  if (!response || !response.body) {
-									  tryagain();
-									  return;
-								  };
-								  let playerData = JSON.parse(response.body);
-								  if (playerData.error) {
-									if (retries >= (args[1] || 5)) {
-										index++;
-										list.notfound.push(name);
-										return;
-									};
-									retries++;
-									await sleep(10);
+								if (!response || !response.body) {
 									tryagain();
 									return;
-								  }
-								  if (whitelistedGuild.includes(playerData.guild) || whitelistedPlayer.includes(name)) list.whitelisted.push(name);
-								  else list.crasher.push(name);
-								  index++;
-								  update(list, index / players.length * 100);
+								};
+								let playerData = JSON.parse(response.body);
+								if (playerData.error) {
+									index++;
+									list.notfound.push(name);
+									return;
+								};
+								if (whitelistedGuild.includes(playerData.guild) || whitelistedPlayer.includes(name)) list.whitelisted.push(name);
+								else list.crasher.push(name);
+								index++;
+								update(list, index / players.length * 100);
 							  });
 						  }
-						  tryagain();
+						tryagain();
 					})
 				});
 			}
