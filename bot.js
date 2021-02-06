@@ -15,7 +15,8 @@ const whitelistedGuild = [
 	'Nightingale',
 	'Garden',
 	'booling',
-	'Vovicum'
+	'Vovicum',
+	'Black Bullet'
 ]
 client.on('ready', async () => {
 	console.log(`Logged in as ${client.user.tag}!`);
